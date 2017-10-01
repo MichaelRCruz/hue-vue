@@ -1,7 +1,14 @@
 <template lang="html">
 
   <div class="hello">
-    <h1>Hello, world.</h1>
+    <!-- <div class="turnOn" @click="setGroup()"></div> -->
+
+    <svg height="900" width="1300" class="sup" viewbox="0 0 1300 900">
+      <polyline points="1,1 1260,1 1260,630 1,630 1,1"
+                style="fill:white;stroke:black;stroke-width:2" />
+    </svg>
+
+
   </div>
 
 </template>
@@ -19,7 +26,7 @@ export default {
   },
   data() {
     return {
-
+      groupToggle: 'false'
     }
   },
   methods: {
@@ -53,6 +60,7 @@ export default {
         });
     },
     setGroup() {
+      this.groupToggle === 'true' ? this.groupToggle = 'false' : this.groupToggle = 'true';
       let _self = this;
       fetch(huerl + '/groups/1/action', {
         method: 'PUT',
@@ -60,7 +68,7 @@ export default {
           "Content-Type": "application/json"
         },
         mode: 'cors',
-        body: '{"on": true,"hue": 12750}'
+        body: '{"on":' + this.groupToggle + ',"hue": 12750}'
         // body: '{"effect":"none"}'
       })
         .then(
@@ -88,5 +96,6 @@ export default {
 }
 </script>
 
-<style lang="css">
+<style lang="css" scoped>
+
 </style>
