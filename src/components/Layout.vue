@@ -3,9 +3,19 @@
   <div class="hello">
     <!-- <div class="turnOn" @click="setGroup()"></div> -->
 
-    <svg height="900" width="1300" class="sup" viewbox="0 0 1300 900">
-      <polyline points="1,1 1260,1 1260,630 1,630 1,1"
+    <svg height="900" width="1300" class="sup" viewBox="0 0 1300 900">
+      <polyline points="1,1 1260,1 1260,630 630,630 630,450 1,450 1,1"
                 style="fill:white;stroke:black;stroke-width:2" />
+        <foreignObject>
+          <div class="supBox">
+
+          </div>
+        </foreignObject>
+        <polyline points="1,1 1260,1 1260,630 630,630 630,450 1,450 1,1"
+                  style="fill:white;stroke:black;stroke-width:4" />
+        <polyline points="955,630 955,250 1260,250"
+                  style="fill:white;stroke:black;stroke-width:2" />
+
     </svg>
 
 
@@ -97,5 +107,16 @@ export default {
 </script>
 
 <style lang="css" scoped>
+
+.sup {
+  width: 75%;
+  height: auto;
+}
+
+.supBox {
+  height: 75px;
+  width: 75px;
+  background-color: green;
+}
 
 </style>
