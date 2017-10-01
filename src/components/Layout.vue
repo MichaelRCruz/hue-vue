@@ -8,7 +8,11 @@
 
 <script>
 import { store } from '../store/store';
-require('dotenv').config();
+
+const huerl = 'http://'
+              + process.env.INTERNAL_IP_ADDRESS
+              + '/api/'
+              + process.env.USER_ID;
 
 export default {
   components: {
@@ -19,16 +23,15 @@ export default {
     }
   },
   methods: {
-
-    // TODO: Move these fetches out of the component.
-    // TODO: They should be actions in your Vuex store.
     fetch() {
       let _self = this;
-      let url = ''
-      fetch(url, {
+      fetch(huerl + '/lights/9/state', {
+        method: 'PUT',
         headers: {
           "Content-Type": "application/json"
-        }
+        },
+        mode: 'cors',
+        body: '{"on":true, "sat":254, "bri":254,"hue":12750}'
       })
         .then(
           function(response) {
@@ -50,6 +53,7 @@ export default {
     }
   },
   beforeMount() {
+    this.fetch();
   }
 }
 </script>
