@@ -6,15 +6,15 @@
     <svg height="900" width="1300" class="sup" viewBox="0 0 1300 900">
       <polyline points="1,1 1260,1 1260,630 630,630 630,450 1,450 1,1"
                 style="fill:white;stroke:black;stroke-width:2" />
-        <foreignObject>
-          <div class="supBox">
+      <polyline points="1,1 1260,1 1260,630 630,630 630,450 1,450 1,1"
+                style="fill:white;stroke:black;stroke-width:4" />
+      <polyline points="955,630 955,250 1260,250"
+                style="fill:white;stroke:black;stroke-width:2" />
 
-          </div>
-        </foreignObject>
-        <polyline points="1,1 1260,1 1260,630 630,630 630,450 1,450 1,1"
-                  style="fill:white;stroke:black;stroke-width:4" />
-        <polyline points="955,630 955,250 1260,250"
-                  style="fill:white;stroke:black;stroke-width:2" />
+      <!-- <foreignObject>
+        <div class="light"></div>
+      </foreignObject> -->
+      <light class="light" />
 
     </svg>
 
@@ -24,6 +24,7 @@
 </template>
 
 <script>
+import Light from './Light';
 import { store } from '../store/store';
 
 const huerl = 'http://'
@@ -33,6 +34,7 @@ const huerl = 'http://'
 
 export default {
   components: {
+    Light
   },
   data() {
     return {
@@ -108,15 +110,19 @@ export default {
 
 <style lang="css" scoped>
 
-.sup {
-  width: 75%;
-  height: auto;
-}
+  .sup {
+    width: 75%;
+    height: auto;
+  }
 
-.supBox {
-  height: 75px;
-  width: 75px;
-  background-color: green;
-}
+  .light {
+    height: 50px;
+    width: 50px;
+    background-color: orange;
+    border-radius: 10px;
+    position: fixed;
+    left: 870px;
+    top: 550px;
+  }
 
 </style>
