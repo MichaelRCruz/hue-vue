@@ -4,17 +4,17 @@
     <!-- <div class="turnOn" @click="setGroup()"></div> -->
 
     <svg height="900" width="1300" class="sup" viewBox="0 0 1300 900">
-      <polyline points="1,1 1260,1 1260,630 630,630 630,450 1,450 1,1"
+      <polyline points="2,2 1260,2 1260,630 630,630 630,450 2,450 2,2"
                 style="fill:white;stroke:black;stroke-width:2" />
-      <polyline points="1,1 1260,1 1260,630 630,630 630,450 1,450 1,1"
-                style="fill:white;stroke:black;stroke-width:4" />
       <polyline points="955,630 955,250 1260,250"
                 style="fill:white;stroke:black;stroke-width:2" />
 
-      <!-- <foreignObject>
-        <div class="light"></div>
-      </foreignObject> -->
-      <light class="light" />
+      <rect class="light" x="10" y="210" rx="10" ry="10" @click="setLightState('4')" />
+      <rect class="light" x="400" y="390" rx="10" ry="10" @click="setLightState('5')" />
+      <rect class="light" x="400" y="10" rx="10" ry="10" @click="setLightState('6')" />
+      <rect class="light" x="895" y="570" rx="10" ry="10" @click="setLightState('7')" />
+      <rect class="light" x="1050" y="10" rx="10" ry="10" @click="setLightState('8')" />
+      <rect class="light" x="1200" y="270" rx="10" ry="10" @click="setLightState('9')" />
 
     </svg>
 
@@ -24,7 +24,6 @@
 </template>
 
 <script>
-import Light from './Light';
 import { store } from '../store/store';
 
 const huerl = 'http://'
@@ -34,24 +33,26 @@ const huerl = 'http://'
 
 export default {
   components: {
-    Light
+
   },
   data() {
     return {
-      groupToggle: 'false'
+      groupToggle: 'false',
+      lightToggle: 'false'
     }
   },
   methods: {
-    fetch() {
+    setLightState(lightId) {
+      this.LightToggle === 'true' ? this.LightToggle = 'false' : this.LightToggle = 'true';
       let _self = this;
-      fetch(huerl + '/lights/9/state', {
+      fetch(huerl + '/lights/' + lightId + '/state', {
         method: 'PUT',
         headers: {
           "Content-Type": "application/json"
         },
         mode: 'cors',
-        // body: '{"on":true, "sat":254, "bri":254,"hue":25500}'
-        body: '{"effect":"none"}'
+        body: '{"on":' + this.LightToggle + ', "sat":254, "bri":254,"hue":25500}'
+        // body: '{"effect":"none"}'
       })
         .then(
           function(response) {
@@ -80,7 +81,7 @@ export default {
           "Content-Type": "application/json"
         },
         mode: 'cors',
-        body: '{"on":' + this.groupToggle + ',"hue": 12750}'
+        body: '{"on":' + this.groupToggle + '}'
         // body: '{"effect":"none"}'
       })
         .then(
@@ -116,13 +117,9 @@ export default {
   }
 
   .light {
-    height: 50px;
+    fill: orange;
     width: 50px;
-    background-color: orange;
-    border-radius: 10px;
-    position: fixed;
-    left: 870px;
-    top: 550px;
+    height: 50px;
   }
 
 </style>
