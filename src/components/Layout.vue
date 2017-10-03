@@ -17,6 +17,8 @@
 
 <script>
   import { store } from '../store/store';
+  import * as d3 from "d3";
+  // var d3 = require("d3");
 
   const huerl = 'http://'
                 + process.env.INTERNAL_IP_ADDRESS
@@ -31,11 +33,12 @@
       return {
         groupToggle: 'false',
         lightToggle: 'true',
-        lightStates: {}
+        lightStates: []
       }
     },
     methods: {
       getLightStates() {
+        let _self = this;
         fetch(huerl + '/lights/', {
           method: 'GET',
           headers: {
@@ -52,7 +55,10 @@
               }
               // Examine the text in the response
               response.json().then(function(data) {
-                this.lightStates = data;
+                for (let light of Object.values(data)) {
+                  _self.lightStates.push(light);
+                }
+                console.log(_self.lightStates[0]);
               });
             }
           )
@@ -61,7 +67,10 @@
           });
       },
       setLightState(lightId) {
-        if (this.LightToggle === 'true') {
+        d3.selectAll("rect")
+        		.transition()
+        		.style("fill","green");
+        if (this.lightToggle === 'true') {
           this.lightToggle = 'false'
         } else {
           this.lightToggle = 'true'
@@ -129,7 +138,7 @@
 <style lang="css" scoped>
 
   .sup {
-    width: 75%;
+    width: 50%;
     height: auto;
   }
 

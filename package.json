@@ -10,6 +10,7 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "d3": "^4.10.2",
     "dotenv": "^4.0.0",
     "dotenv-webpack": "^1.5.4",
     "file-system": "^2.2.2",
